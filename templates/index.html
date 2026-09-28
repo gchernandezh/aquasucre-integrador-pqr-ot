@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Integrador PQR → OT</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f7f9;color:#24323d}
+header{background:white;padding:22px 6%;border-bottom:1px solid #dce4e8}
+header h1{margin:0 0 5px} header p{margin:0;color:#657680}
+main{width:88%;max-width:1100px;margin:32px auto}
+.card{background:white;padding:24px;border-radius:10px;box-shadow:0 2px 8px #0001}
+.notice{background:#eef5f7;padding:12px;border-radius:7px;margin-bottom:20px}
+.error{background:#fff1f1;padding:14px;border-radius:7px;margin-bottom:20px}
+.table-wrap{overflow-x:auto} table{width:100%;border-collapse:collapse}
+th,td{padding:13px 10px;text-align:left;border-bottom:1px solid #e5eaed}
+th{background:#f7f9fa} footer{text-align:center;color:#7b898f;padding:25px}
+</style>
+</head>
+<body>
+<header><h1>AquaSucre E.S.P.</h1><p>Integrador PQR → Órdenes de Trabajo</p></header>
+<main><div class="card">
+<h2>PQR registradas</h2>
+<div class="notice">Versión inicial de solo lectura. Todavía no crea ni modifica órdenes de trabajo.</div>
+{% if error %}<div class="error"><strong>No fue posible consultar Frappe.</strong><br>{{ error }}</div>{% endif %}
+{% if pqrs %}
+<div class="table-wrap"><table>
+<thead><tr><th>PQR</th><th>Asunto</th><th>Estado</th><th>Prioridad</th><th>Fecha</th></tr></thead>
+<tbody>
+{% for pqr in pqrs %}
+<tr><td>{{ pqr.name }}</td><td>{{ pqr.subject }}</td><td>{{ pqr.status }}</td><td>{{ pqr.priority }}</td><td>{{ pqr.creation }}</td></tr>
+{% endfor %}
+</tbody></table></div>
+{% elif not error %}<p>No se encontraron PQR.</p>{% endif %}
+</div></main>
+<footer>AquaSucre E.S.P. — Prototipo académico</footer>
+</body></html>
